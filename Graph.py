@@ -124,13 +124,14 @@ class Graph(dict):
         >>> set(g.out_vertices(w)) == set([u, v])
         True
         """
-        for v in self.keys():
-            for w in self.keys():
+        for v in self.vertices():
+            for w in self.vertices():
                 if v != w:
                     self.add_edge(Edge(v, w))
 
     def add_regular_edges(self, degree):
         """Connect vertices in such a way that the graph is regular.
+
         >>> u,v,w,x = [Vertex(c) for c in "uvwx"]
         >>> g1 = Graph([u,v,w,x])
         >>> g1.add_regular_edges(1)
@@ -140,17 +141,34 @@ class Graph(dict):
         >>> g2.add_regular_edges(2)
         >>> list(len(g2.out_vertices(n)) for n in g2.vertices())
         [2, 2, 2, 2]
+        >>> g3 = Graph([u,v,w])
+        >>> g3.add_regular_edges(2)
+        >>> list(len(g3.out_vertices(n)) for n in g3.vertices())
+        [2, 2, 2]
+        >>> g4 = Graph([u,v,w,x])
+        >>> g4.add_regular_edges(3)
+        >>> list(len(g4.out_vertices(n)) for n in g4.vertices())
+        [3, 3, 3, 3]
+        >>> g5 = Graph([Vertex(c) for c in "abcdefgh"])
+        >>> g5.add_regular_edges(6)
+        >>> all(list(len(g5.out_vertices(n)) == 6 for n in g5.vertices()))
+        True
         """
-        for i in range(0, degree):
-            vertices = self.keys()
-            while len(vertices) > 0:
-                v = vertices.pop()
-                for w in vertices:
-                    if w not in self.out_vertices(v):
-                        vertices.remove(w)
-                        self.add_edge(Edge(v, w))
-                        break
-
+        vs = self.vertices()
+        for v in vs:
+            try:
+                ws = self.vertices()
+                ws.remove(v)
+                for i in range(0, degree - len(self.out_vertices(v))):
+                    w = ws.pop()
+                    while w in self.out_vertices(v) or len(self.out_vertices(w)) >= degree:
+                        w = ws.pop()
+                    self.add_edge(Edge(v, w))
+            except IndexError:
+                pass
+            
+            
+        
 
 class Vertex(object):
     def __init__(self, label=''):
