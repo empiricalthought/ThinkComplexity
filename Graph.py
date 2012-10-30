@@ -153,8 +153,15 @@ class Graph(dict):
         >>> g5.add_regular_edges(6)
         >>> all(list(len(g5.out_vertices(n)) == 6 for n in g5.vertices()))
         True
+        >>> g6 = Graph([u, v])
+        >>> g6.add_regular_edges(4)
+        Traceback (most recent call last):
+        ValueError: Invalid graph for degree 4
         """
         vs = self.vertices()
+        size = len(vs)
+        if size < degree + 1 or size * degree % 2 == 1:
+            raise ValueError, "Invalid graph for degree %d" % degree
         for v in vs:
             try:
                 ws = self.vertices()
