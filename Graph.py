@@ -76,6 +76,31 @@ class Graph(dict):
                 result.add(self[v][w])
         return list(result)
 
+    def is_connected(self):
+        """Return True if the graph is connected.
+
+        >>> u, v, w, z = [Vertex(c) for c in "uvwz"]
+        >>> g = Graph([u, v, w, z], [Edge(u,v), Edge(v, w), Edge(v, z)])
+        >>> g.is_connected()
+        True
+        >>> g2 = Graph([u, v, w, z], [Edge(u,v), Edge(w, z)])
+        >>> g2.is_connected()
+        False
+        >>> g3 = Graph([u, v, w, z], [Edge(u,v), Edge(v, w), Edge(w, z)])
+        >>> g3.is_connected()
+        True
+        """
+        for v in self.vertices():
+            v.visited = False
+        queue = [self.vertices()[0]]
+        while len(queue) > 0:
+            v = queue.pop()
+            v.visited = True
+            for w in self.out_vertices(v):
+                if not w.visited:
+                    queue.append(w)
+        return all(u.visited for u in self.vertices())
+
     def out_vertices(self, v):
         """Return all of the vertices connected to a given 
         vertex.
