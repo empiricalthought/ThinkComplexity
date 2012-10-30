@@ -25,8 +25,7 @@ class Graph(dict):
     def get_edge(self, v, w):
         """get the Edge object connecting two vertices."
 
-        >>> u = Vertex('u')
-        >>> v = Vertex('v')
+        >>> u, v = Vertex('u'), Vertex('v')
         >>> e = Edge(u, v)
         >>> g = Graph([u, v], [e])
         >>> g.get_edge(u, v)
@@ -40,8 +39,7 @@ class Graph(dict):
     def remove_edge(self, e):
         """Remove an edge from the graph.
 
-        >>> u = Vertex('u')
-        >>> v = Vertex('v')
+        >>> u, v = Vertex('u'), Vertex('v')
         >>> e = Edge(u, v)
         >>> g = Graph([u, v], [e])
         >>> g.remove_edge(e)
@@ -55,8 +53,7 @@ class Graph(dict):
     def vertices(self):
         """Return all of the vertices in the graph as a list.
 
-        >>> u = Vertex('u')
-        >>> v = Vertex('v')
+        >>> u, v = Vertex('u'), Vertex('v')
         >>> e = Edge(u, v)
         >>> g = Graph([u, v], [e])
         >>> set(g.vertices()) == set([u, v])
@@ -67,8 +64,7 @@ class Graph(dict):
     def edges(self):
         """Return all of the edges in the graph as a list.
 
-        >>> u = Vertex('u')
-        >>> v = Vertex('v')
+        >>> u, v = Vertex('u'), Vertex('v')
         >>> e = Edge(u, v)
         >>> g = Graph([u, v], [e])
         >>> g.edges()
@@ -84,11 +80,8 @@ class Graph(dict):
         """Return all of the vertices connected to a given 
         vertex.
 
-        >>> u = Vertex('u')
-        >>> v = Vertex('v')
-        >>> w = Vertex('w')
-        >>> e = Edge(u, v)
-        >>> f = Edge(u, w)
+        >>> u, v, w = Vertex('u'), Vertex('v'), Vertex('w')
+        >>> e, f = Edge(u, v), Edge(u, w)
         >>> g = Graph([u, v, w], [e, f])
         >>> set(g.out_vertices(u)) == set([v, w])
         True
@@ -98,11 +91,8 @@ class Graph(dict):
     def out_edges(self, v):
         """Return all of the edges connected to a given vertex.
 
-        >>> u = Vertex('u')
-        >>> v = Vertex('v')
-        >>> w = Vertex('w')
-        >>> e = Edge(u, v)
-        >>> f = Edge(u, w)
+        >>> u, v, w = Vertex('u'), Vertex('v'), Vertex('w')
+        >>> e, f = Edge(u, v), Edge(u, w)
         >>> g = Graph([u, v, w], [e, f])
         >>> set(g.out_edges(u)) == set([e, f])
         True
@@ -112,9 +102,7 @@ class Graph(dict):
     def add_all_edges(self):
         """Connect every vertex in the graph.  
 
-        >>> u = Vertex('u')
-        >>> v = Vertex('v')
-        >>> w = Vertex('w')
+        >>> u, v, w = Vertex('u'), Vertex('v'), Vertex('w')
         >>> g = Graph([u, v, w])
         >>> g.add_all_edges()
         >>> set(g.out_vertices(u)) == set([v, w])
