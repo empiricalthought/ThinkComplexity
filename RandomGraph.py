@@ -3,8 +3,9 @@ import random
 
 class RandomGraph(Graph.Graph):
     def add_random_edges(self, p):
-        for v in self.vertices():
-            for w in self.vertices():
-                r = random.random()
-                if r <= p / 2:
-                    self.add_edge(Graph.Edge(v, w))
+        vs = self.vertices()
+        for i, v in enumerate(vs):
+            for j, w in enumerate(vs):
+                if j <= i: continue
+                if random.random() > p: continue
+                self.add_edge(Graph.Edge(v, w))
