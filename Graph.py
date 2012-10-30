@@ -89,6 +89,10 @@ class Graph(dict):
         >>> g3 = Graph([u, v, w, z], [Edge(u,v), Edge(v, w), Edge(w, z)])
         >>> g3.is_connected()
         True
+        >>> g4 = Graph([Vertex(n) for n in range(0, 256)])
+        >>> g4.add_all_edges()
+        >>> g4.is_connected()
+        True
         """
         for v in self.vertices():
             v.visited = False
